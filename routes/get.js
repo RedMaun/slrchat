@@ -3,11 +3,6 @@ const verify = require('../verifyToken');
 const User = require('../model/User');
 
 router.get('/', verify, async (req, res) => {
-    // const token = req.header('Cookie').substring(9);
-    // var decoded = jwt_decode(token);
-    // const user = await User.findOne({ _id: decoded._id });
-    // res.setHeader('name', user.name);
-    // req.header('avatar', user.avatar);
     res.render('home', {title: "СЬЛРЖАЛСЧ чат"});
 });
 

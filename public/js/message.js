@@ -183,19 +183,24 @@ async function renderMessage(shit, insert = false)
     }
 }
 
-function loadLastMessages()
+function loadLastMessages(token)
 {
     const count = 20
-    socket.emit('lastMessages', count);
-    socket.on('lastMessages callback', function(data) 
+    socket.emit('lastMessages', {token: token, count: count});
+    socket.on('lastMessages callback', function(dataMes) 
     {
-        for (let i = 0; i < data.length; i++)
+        let token = dataMes.token
+        if (token == cookieData)
         {
-            renderMessage(genMessage(data[i]))
+            var data = dataMes.list
+            for (let i = 0; i < data.length; i++)
+            {
+                renderMessage(genMessage(data[i]))
+            }
+            updateGalleries(true) 
+            lever(OFFSET)
+            loaded()
         }
-        updateGalleries(true) 
-        lever(OFFSET)
-        loaded()
     });
     
     
@@ -229,24 +234,27 @@ function lever (offset)
 
 function renderMessages(firstid, lastid)
 {
-    socket.emit('loadMessages', firstid, lastid);
-    socket.on('loadMessages callback', function(data) 
+    socket.emit('loadMessages', firstid, lastid, cookieData);
+    socket.on('loadMessages callback', function(data, token) 
     {
-        var oldHeight = $(document).height()
-        var oldScroll = $(window).scrollTop()
+        if (token == cookieData)
+        {
+            var oldHeight = $(document).height()
+            var oldScroll = $(window).scrollTop()
 
-        for (let i = 0; i < data.length; i++)
-        {
-            renderMessage(genMessage(data[i]), true)
+            for (let i = 0; i < data.length; i++)
+            {
+                renderMessage(genMessage(data[i]), true)
+            }
+            $(document).scrollTop(oldScroll + $(document).height() - oldHeight); 
+            async function bounce () 
+            {
+                await sleep(500)
+                lever(OFFSET)
+            }
+            
+            bounce()
+            updateGalleries()
         }
-        $(document).scrollTop(oldScroll + $(document).height() - oldHeight); 
-        async function bounce () 
-        {
-            await sleep(500)
-            lever(OFFSET)
-        }
-        
-        bounce()
-        updateGalleries()
     });
 }

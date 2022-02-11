@@ -7,6 +7,8 @@ const headerAvatar = document.getElementById('header-avatar')
 var userData
 var replyDiv, replyId
 
+const cookieData = document.cookie.substring(9)
+
 toilet.addEventListener('paste', e => {
     var uploadShit = document.getElementById('uploadShit')
     uploadShit.files = e.clipboardData.files;
@@ -184,7 +186,7 @@ form.addEventListener('submit', function(e) {
         {
             var replyObj = {}
         }
-        socket.emit('chat message', {'message': input.value, 'author': author, 'images': shitArr, 'replyObj': replyObj,})
+        socket.emit('chat message', {'message': input.value, 'author': author, 'images': shitArr, 'replyObj': replyObj})
         input.value = ''
         uploadShit.value = ''
         filesDisplay.innerHTML = ''
@@ -201,8 +203,12 @@ $( document ).ready(function() {
 })
 
 socket.on('userData', function(msg) {
-    userData = msg
-    headerName.innerText = msg.name
-    headerAvatar.getElementsByTagName('img')[0].setAttribute('src', msg.avatar)
+    token = msg.token
+    if (token == cookieData)
+    {
+        userData = msg
+        headerName.innerText = msg.name
+        headerAvatar.getElementsByTagName('img')[0].setAttribute('src', msg.avatar)
+    }
 });
 

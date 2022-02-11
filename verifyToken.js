@@ -6,13 +6,13 @@ module.exports = function(req, res, next){
     token = token.substring(9);
     try
     {
-        const verified = jwt.verify(token, (process.env.TOKEN_SECRET).toString('base64'));
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
         req.user = verified;
         next();
     }
     catch(err)
     {
-        res.status(404)
-        res.redirect('/')
+        console.log(err)
+        res.status(404).send('error')
     }
 }

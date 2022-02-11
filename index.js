@@ -22,12 +22,11 @@ dotenv.config()
 
 app.use('/public', express.static('public'))
 
-
 io.on('connection', async (socket) => {
   socket.on('userData', async (token) => {
     let decoded = jwt_decode(token);
     const user = await User.findOne({ _id: decoded._id });
-    io.emit('userData', {name: user.name, avatar: user.avatar})
+    io.emit('userData', {token: token, name: user.name, avatar: user.avatar})
   })
   socket.on('chat message', async (msg) => {
     try
@@ -60,9 +59,11 @@ io.on('connection', async (socket) => {
       console.log(e)
     }
   });
-  socket.on('lastMessages', async (count) => {
+  socket.on('lastMessages', async (data) => {
+    let token = data.token
+    let count = data.count
     const list = await (await messages.find().sort({ _id: -1 }).limit(count).lean()).reverse()
-    io.emit('lastMessages callback', list); 
+    io.emit('lastMessages callback', {token: token, list: list}); 
   });
   socket.on('loadMessages', async (startid, lastid) => {
     const list = (await messages.find()
@@ -82,8 +83,8 @@ async function start () {
       useNewUrlParser: true
       }
     )
-    server.listen(3000, () => {
-      console.log('listening on http://127.0.0.1:3000/');
+    server.listen(3002, () => {
+      console.log('listening on http://127.0.0.1:3002/');
     });   
     } catch (e) {
       console.log(e)
