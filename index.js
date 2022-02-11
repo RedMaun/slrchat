@@ -65,13 +65,13 @@ io.on('connection', async (socket) => {
     const list = await (await messages.find().sort({ _id: -1 }).limit(count).lean()).reverse()
     io.emit('lastMessages callback', {token: token, list: list}); 
   });
-  socket.on('loadMessages', async (startid, lastid) => {
+  socket.on('loadMessages', async (startid, lastid, token) => {
     const list = (await messages.find()
       .limit(lastid)
       .skip(startid)
       .lean()).reverse()
 
-    io.emit('loadMessages callback', list); 
+    io.emit('loadMessages callback', list, token); 
   });
 });
 
