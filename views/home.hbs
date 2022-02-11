@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../public/css/images-grid.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/1c40832f28.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="header">
+        <div id="leftModule">
+            <div id="slrchat">СЬЛРЖАЛСЧ чат</div>
+            <a id="reg" href="/registration">Регистрация</a>
+            <a id="log" href="/login">Логин</a>
+        </div>
+        <div id="rightModule">
+            <div id="header-name"></div>
+            <div id="header-avatar">
+                <img src="">
+            </div>
+            <a href="/api/user/exit">
+                <button id="exit">Выход</button>
+            </a>
+        </div>
+    </div>
+    <div id="space"></div>
+    <div id="sewerage"></div>
+    
+    <form id="toilet-trigger" action="">
+        <div id="replyDisplay"></div>
+        <input type="file" onchange="loadImage()" id="uploadShit" multiple="multiple"/>
+        <div id="oneLine">
+            <button id="uploadButt" type="button" onclick="$('#uploadShit').click()">
+                <i id="paperClip" class="fa-solid fa-paperclip fa-2x"></i>
+            </button>
+            <input id="toilet" placeholder="Напишите сообщение..." autocomplete="off" />
+            <button type="submit" id="flush">
+            </button>
+        </div>
+        <div id="filesDisplay"></div>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../public/js/images-grid.js"></script>
+    <script src="../public/js/message.js"></script>
+    <script src="../public/js/main.js"></script>
+    <script>loadLastMessages()</script>
+</body>
+</html>
