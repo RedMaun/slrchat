@@ -185,26 +185,24 @@ async function renderMessage(shit, insert = false)
 
 function loadLastMessages(token)
 {
-    const count = 20
-    socket.emit('lastMessages', {token: token, count: count});
-    socket.on('lastMessages callback', function(dataMes) 
-    {
-        let token = dataMes.token
-        if (token == cookieData)
-        {
-            var data = dataMes.list
-            for (let i = 0; i < data.length; i++)
-            {
-                renderMessage(genMessage(data[i]))
-            }
-            updateGalleries(true) 
-            lever(OFFSET)
-            loaded()
-        }
-    });
-    
-    
+    socket.emit('lastMessages', {token: token, count: OFFSET});
 }
+
+socket.on('lastMessages callback', function(dataMes) 
+{
+    let token = dataMes.token
+    if (token == cookieData)
+    {
+        var data = dataMes.list
+        for (let i = 0; i < data.length; i++)
+        {
+            renderMessage(genMessage(data[i]))
+        }
+        updateGalleries(true) 
+        lever(OFFSET)
+        loaded()
+    }
+});
 
 function lever (offset) 
 {
@@ -224,8 +222,7 @@ function lever (offset)
             let lastid = Number($('.shit')[0].getElementsByClassName('reply')[0].id)
             let firstid = lastid - offset
             if (firstid < 0) { firstid = 0 }
-            if (firstid == 0 && lastid == 1) { lastid += 1 }
-            if (lastid != 0)
+            if (firstid > -1 && lastid > 0)
             {
                 renderMessages(firstid, lastid)
             }
@@ -236,26 +233,26 @@ function lever (offset)
 function renderMessages(firstid, lastid)
 {
     socket.emit('loadMessages', firstid, lastid, cookieData);
-    socket.on('loadMessages callback', function(data, token) 
-    {
-        if (token == cookieData)
-        {
-            var oldHeight = $(document).height()
-            var oldScroll = $(window).scrollTop()
-
-            for (let i = 0; i < data.length; i++)
-            {
-                renderMessage(genMessage(data[i]), true)
-            }
-            $(document).scrollTop(oldScroll + $(document).height() - oldHeight); 
-            async function bounce () 
-            {
-                await sleep(500)
-                lever(OFFSET)
-            }
-            
-            bounce()
-            updateGalleries()
-        }
-    });
 }
+
+socket.on('loadMessages callback', function(data, token) 
+{
+    if (token == cookieData)
+    {
+        var oldHeight = $(document).height()
+        var oldScroll = $(window).scrollTop()
+        for (let i = 0; i < data.length; i++)
+        {
+            renderMessage(genMessage(data[i]), true)
+        }
+        async function bounce () 
+        {
+            await sleep(1000)
+            lever(OFFSET)
+        }
+        
+        bounce()
+        updateGalleries()
+        $(document).scrollTop(oldScroll + $(document).height() - oldHeight);
+    }
+});
