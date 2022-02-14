@@ -288,6 +288,12 @@ socket.on('lastMessages callback', function(dataMes)
                 }
                 renderMessage(genMessage(data[i], true))
             }
+            else if (i == 0 && JSON.stringify(data[i].author) === JSON.stringify(data[i + 1].author))
+            {
+                let elem = genMessage(data[i])
+                elem.style.paddingBottom = "3px"
+                renderMessage(elem)
+            }
             else
             {
                 renderMessage(genMessage(data[i]))
@@ -337,6 +343,7 @@ socket.on('loadMessages callback', function(data, token)
     {
         var oldHeight = $(document).height()
         var oldScroll = $(window).scrollTop()
+        console.log(data)
         for (let i = 0; i < data.length; i++)
         {
             if (i < data.length - 1 && JSON.stringify(data[i].author) === JSON.stringify(data[i + 1].author))
@@ -355,6 +362,12 @@ socket.on('loadMessages callback', function(data, token)
                 {
                     renderMessage(genMessage(data[i]), true)
                 }
+            }
+            else if (i == data.length - 1 && JSON.stringify(data[i].author) === JSON.stringify(data[i - 1].author))
+            {
+                let elem = genMessage(data[i])
+                elem.style.paddingBottom = "3px"
+                renderMessage(elem, true)
             }
             else
             {
