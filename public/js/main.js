@@ -66,7 +66,6 @@ async function scrollToDiv(val)
                 block: 'center'})
         neededDiv.style.background = "#2a2a2a"
         setTimeout(() => { neededDiv.style.transition = "background-color 1000ms linear"; neededDiv.style.background = "#1a1a1a"; setTimeout(() => { neededDiv.style.transition = "" }, 1000)}, 5000)
-        console.log(neededDiv.style)
     }
 }
 

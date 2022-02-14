@@ -108,7 +108,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.7);
   opacity: 0;
   z-index: 100;
   -webkit-user-select: none;

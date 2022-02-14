@@ -343,7 +343,6 @@ socket.on('loadMessages callback', function(data, token)
     {
         var oldHeight = $(document).height()
         var oldScroll = $(window).scrollTop()
-        console.log(data)
         for (let i = 0; i < data.length; i++)
         {
             if (i < data.length - 1 && JSON.stringify(data[i].author) === JSON.stringify(data[i + 1].author))

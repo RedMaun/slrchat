@@ -106,6 +106,7 @@ body
     position: relative;
     width: 100%;
     height: auto;
+    margin-bottom: 5px;
 }
 
 .titleReply
