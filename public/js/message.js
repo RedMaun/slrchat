@@ -221,11 +221,12 @@ function lever (offset)
         if (percent <= 0.05) 
         {
             $(window).unbind('scroll')
-            let lastid = $('.shit')[0].getElementsByClassName('reply')[0].id
-            if (lastid != '0')
+            let lastid = Number($('.shit')[0].getElementsByClassName('reply')[0].id)
+            let firstid = lastid - offset
+            if (firstid < 0) { firstid = 0 }
+            if (firstid == 0 && lastid == 1) { lastid += 1 }
+            if (lastid != 0)
             {
-                let firstid = lastid - offset
-                if (firstid < 0) { firstid = 0 }
                 renderMessages(firstid, lastid)
             }
         }
