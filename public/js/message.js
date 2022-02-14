@@ -281,12 +281,18 @@ socket.on('lastMessages callback', function(dataMes)
         {            
             if (i > 0 && JSON.stringify(data[i].author) === JSON.stringify(data[i - 1].author))
             {
+                if (!(JSON.stringify(data[i - 1].author) === JSON.stringify(data[i - 2].author)))
+                {
+                    let elem = document.getElementById(data[i - 1]._id)
+                    elem.style.paddingBottom = "3px"
+                }
                 renderMessage(genMessage(data[i], true))
             }
             else
             {
                 renderMessage(genMessage(data[i]))
             }
+            
         }
         updateGalleries(true) 
         lever(OFFSET)
@@ -312,7 +318,6 @@ function lever (offset)
             let lastid = Number($('.shit')[0].getElementsByClassName('reply')[0].id)
             let firstid = lastid - offset
             if (firstid < 0) { firstid = 0 }
-            console.log(firstid, lastid)
             if (firstid > -1 && lastid > 0)
             {
                 renderMessages(firstid, lastid)
@@ -338,11 +343,18 @@ socket.on('loadMessages callback', function(data, token)
             {
                 renderMessage(genMessage(data[i], true), true)
             }
-            else if (i == data.length - 1 && JSON.stringify(data[i].author) === JSON.stringify(data[i - 1].author))
+            else if (i < data.length - 1 && JSON.stringify(data[i].author) !== JSON.stringify(data[i + 1].author))
             {
-                let elem = genMessage(data[i])
-                elem.style.paddingBottom = "3px"
-                renderMessage(elem, true)
+                if (i < data.length - 1 && i > 0 && JSON.stringify(data[i].author) === JSON.stringify(data[i - 1].author))
+                {
+                    let elem = genMessage(data[i])
+                    elem.style.paddingBottom = "3px"
+                    renderMessage(elem, true)
+                }
+                else
+                {
+                    renderMessage(genMessage(data[i]), true)
+                }
             }
             else
             {

@@ -67,11 +67,11 @@ io.on('connection', async (socket) => {
   });
   socket.on('loadMessages', async (startid, lastid, token) => {
     const list = (await messages.find({})
-      .skip(startid)
       .limit(lastid)
+      .skip(startid)
       .lean()).reverse()
 
-      io.emit('loadMessages callback', list, token); 
+    io.emit('loadMessages callback', list, token); 
   });
 });
 
