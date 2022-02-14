@@ -80,7 +80,7 @@ function reply(e)
     let butt = document.createElement('button')
     butt.id = 'buttCloseReply'
     butt.type = 'button'
-    butt.setAttribute('onclick', 'closeReplyMessage()');
+    butt.setAttribute('onclick', 'closeReplyMessage(); toilet.focus()');
     butt.innerHTML = "<i class=\"fa-solid fa-xmark fa-sm\"></i>"
     let replyGenDiv = genReplyMessage(name, time, text, replyId, reply_Id, image, butt)
     replyGenDiv.style.margin = "0px"
@@ -146,7 +146,7 @@ function loadImage()
                     butt.className = 'buttClose'
                     butt.value = file.name
                     butt.type = 'button'
-                    butt.setAttribute('onclick', 'deleteFile(this)');
+                    butt.setAttribute('onclick', 'deleteFile(this); toilet.focus()');
                     butt.innerHTML = "<i class=\"fa-solid centered fa-xmark\"></i>"
                     li.innerText = file.name
                     li.appendChild(butt)
@@ -199,10 +199,16 @@ socket.on('message callback', function(msg) {
     {
         previousDiv.style.paddingBottom = "3px"
         renderMessage(genMessage(msg, true))
+        document.getElementsByClassName('space')[0].remove()
+        let space = createElem('div', ['space'])
+        renderMessage(space)
     }
     else
     {
         renderMessage(genMessage(msg))
+        document.getElementsByClassName('space')[0].remove()
+        let space = createElem('div', ['space'])
+        renderMessage(space)
     }
 });
 

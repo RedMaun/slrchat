@@ -13,10 +13,11 @@ body
     color: #D7DADC;
     background-color: #000000;
 }
-#space
+
+.space
 {
     display: block;
-    height: 40px;
+    height: 100px;
 }
 #header
 {
@@ -83,11 +84,13 @@ body
 #sewerage
 {
     width: 550px;
-    height: auto;
-    margin: auto;
+    height: 100vh;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #1a1a1a;
+    position: relative;
+    left: 50%;
+    margin-left: -275px;
 }
 
 .shit
@@ -228,12 +231,29 @@ body
 
 #toilet-trigger
 {
+    z-index: 17;
     width: 550px;
-    margin: auto;
+    height: auto;
     background-color: #222222;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    margin-bottom: 20px;
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    right: 50%;
+    margin-left: -275px;
+    margin-bottom: 25px;
+}
+
+#plug
+{
+    height: 40px;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    z-index: 15;
+    background-color: #000000;
 }
 
 #uploadShit

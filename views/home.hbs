@@ -20,14 +20,13 @@
             </a>
         </div>
     </div>
-    <div id="space"></div>
     <div id="sewerage"></div>
-    
+
     <form id="toilet-trigger" action="">
         <div id="replyDisplay"></div>
         <input type="file" onchange="loadImage()" id="uploadShit" multiple="multiple"/>
         <div id="oneLine">
-            <button id="uploadButt" type="button" onclick="$('#uploadShit').click()">
+            <button id="uploadButt" type="button" onclick="$('#uploadShit').click(); toilet.focus()">
                 <i id="paperClip" class="fa-solid fa-paperclip fa-2x"></i>
             </button>
             <input id="toilet" placeholder="Напишите сообщение..." autocomplete="off" />
@@ -36,6 +35,7 @@
         </div>
         <div id="filesDisplay"></div>
     </form>
+    <div id="plug"></div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="../public/js/images-grid.js"></script>

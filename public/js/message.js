@@ -248,6 +248,7 @@ function closeReplyMessage()
     replyId = ''
     replyDisplay.innerHTML = ''
     replyDisplay.style.paddingTop = "0px"
+    toilet.focus()
 }
 
 async function renderMessage(shit, insert = false)
@@ -281,7 +282,7 @@ socket.on('lastMessages callback', function(dataMes)
         {            
             if (i > 0 && JSON.stringify(data[i].author) === JSON.stringify(data[i - 1].author))
             {
-                if (!(JSON.stringify(data[i - 1].author) === JSON.stringify(data[i - 2].author)))
+                if (i > 1 && !(JSON.stringify(data[i - 1].author) === JSON.stringify(data[i - 2].author)))
                 {
                     let elem = document.getElementById(data[i - 1]._id)
                     elem.style.paddingBottom = "3px"
@@ -297,6 +298,11 @@ socket.on('lastMessages callback', function(dataMes)
             else
             {
                 renderMessage(genMessage(data[i]))
+            }
+            if (i == data.length - 1)
+            {
+                let space = createElem('div', ['space'])
+                renderMessage(space)
             }
             
         }
