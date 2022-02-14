@@ -17,7 +17,8 @@ body
 .space
 {
     display: block;
-    height: 100px;
+    height: 120px;
+    background-color: #1a1a1a;
 }
 #header
 {
@@ -84,13 +85,11 @@ body
 #sewerage
 {
     width: 550px;
-    height: 100vh;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    height: auto;
+    display: block;
+    margin: auto;
     background-color: #1a1a1a;
-    position: relative;
-    left: 50%;
-    margin-left: -275px;
+    padding-top: 20px;
 }
 
 .shit
@@ -101,6 +100,16 @@ body
     height: auto;
     padding-bottom: 10px;
     padding-top: 10px;
+    background-color: #1a1a1a;
+}
+
+#indicator
+{
+    height: 20px;
+    display: block;
+    width: 550px;
+    margin: auto;
+    margin-bottom: 100px;
     background-color: #1a1a1a;
 }
 
@@ -248,7 +257,7 @@ body
 #plug
 {
     height: 40px;
-    width: 100%;
+    width: 1020%;
     position: fixed;
     bottom: 0px;
     left: 0px;

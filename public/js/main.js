@@ -199,16 +199,10 @@ socket.on('message callback', function(msg) {
     {
         previousDiv.style.paddingBottom = "3px"
         renderMessage(genMessage(msg, true))
-        document.getElementsByClassName('space')[0].remove()
-        let space = createElem('div', ['space'])
-        renderMessage(space)
     }
     else
     {
         renderMessage(genMessage(msg))
-        document.getElementsByClassName('space')[0].remove()
-        let space = createElem('div', ['space'])
-        renderMessage(space)
     }
 });
 

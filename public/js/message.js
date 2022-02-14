@@ -299,11 +299,6 @@ socket.on('lastMessages callback', function(dataMes)
             {
                 renderMessage(genMessage(data[i]))
             }
-            if (i == data.length - 1)
-            {
-                let space = createElem('div', ['space'])
-                renderMessage(space)
-            }
             
         }
         updateGalleries(true) 
