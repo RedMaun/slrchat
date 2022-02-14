@@ -66,12 +66,12 @@ io.on('connection', async (socket) => {
     io.emit('lastMessages callback', {token: token, list: list}); 
   });
   socket.on('loadMessages', async (startid, lastid, token) => {
-    const list = (await messages.find()
-      .limit(lastid)
+    const list = (await messages.find({})
       .skip(startid)
+      .limit(lastid)
       .lean()).reverse()
 
-    io.emit('loadMessages callback', list, token); 
+      io.emit('loadMessages callback', list, token); 
   });
 });
 

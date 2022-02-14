@@ -1,5 +1,5 @@
 const socket = io();
-const OFFSET = 50
+const OFFSET = 30
 
 function loaded() {
     window.scrollTo(0, document.body.scrollHeight);
@@ -59,70 +59,153 @@ function updateGalleries (yesnt = false)
     })    
 }
 
-function genMessage(msg)
+function genMessage(msg, isChildMessage = false)
 {
-    const avatarImg = createElem('img', [], [], {src: msg.author.avatar})
-    const avatar = createElem('div', ['avatar'], [avatarImg])
-
-    const name = createElem('div', ['name'])
-    name.innerText = msg.author.name
-
-    const time = createElem('div', ['time'])
-    var today = new Date(msg.time)
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); 
-    var yyyy = today.getFullYear();
-    var timeDate = today.toLocaleTimeString('ru-RU', { hour12: false, 
-        hour: "numeric", 
-        minute: "numeric"});
-    today = timeDate + ' ' + mm + '.' + dd + '.' + yyyy;
-    time.innerText = today
-
-    const reply = createElem('button', ['reply'], [], {id: msg.id, onclick: "reply(this)"})
-    reply.innerHTML = '<i style="font-size:14px" class="fa">&#xf112;</i>'
-    const title = createElem('div', ['title'], [name, time, reply])
-
-    const text = createElem('div', ['text'])
-    text.innerText = msg.msg
-    var images, content, replyMes
-    if (msg.reply && msg.reply != {})
+    if (isChildMessage)
     {
-        replyMes = genReplyMessage(msg.reply.name, msg.reply.time, msg.reply.text, msg.reply.id, msg.reply._id)
-    }
-    else
-    {
-        replyMes = ''
-    }
 
-    if (msg.images.length > 0)
-    {
-        images = createElem('div', ['images'], [], {data: msg.images})
-        if (replyMes != '')
+        const name = createElem('div', ['name'])
+        name.innerText = msg.author.name
+        name.id = msg.author._id
+        name.style.display = "none"
+
+        const time = createElem('div', ['time'])
+        var today = new Date(msg.time)
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+        var yyyy = today.getFullYear();
+        var timeDate = today.toLocaleTimeString('ru-RU', { hour12: false, 
+            hour: "numeric", 
+            minute: "numeric"});
+        today = timeDate + ' ' + dd + '.' + mm + '.' + yyyy;
+        time.innerText = today
+        time.style.display = "none"
+
+        const reply = createElem('button', ['reply'], [], {id: msg.id, onclick: "reply(this)"})
+        reply.innerHTML = '<i style="font-size:14px" class="fa">&#xf112;</i>'
+        const title = createElem('div', ['title'], [name, time, reply])
+                
+        const text = createElem('div', ['text'])
+        text.innerText = msg.msg
+        var images, content, replyMes
+        if (msg.reply && msg.reply != {})
         {
-            content = createElem('div', ['content'], [replyMes, text, images])
+            replyMes = genReplyMessage(msg.reply.name, msg.reply.time, msg.reply.text, msg.reply.id, msg.reply._id)
         }
         else
         {
-            content = createElem('div', ['content'], [text, images])
+            replyMes = ''
         }
-    }
-    else
-    {
-        if (replyMes != '')
+
+        if (msg.images.length > 0)
         {
-            content = createElem('div', ['content'], [replyMes, text])
+            images = createElem('div', ['images'], [], {data: msg.images})
+            images.style.marginTop = "0px"
+            if (replyMes != '')
+            {
+                content = createElem('div', ['content'], [replyMes, text, images])
+            }
+            else
+            {
+                content = createElem('div', ['content'], [text, images])
+            }
         }
         else
         {
-            content = createElem('div', ['content'], [text])
+            if (replyMes != '')
+            {
+                content = createElem('div', ['content'], [replyMes, text])
+            }
+            else
+            {
+                content = createElem('div', ['content'], [text])
+            }
         }
-    }
-    const right = createElem('div', ['rightCont'], [title, content])
-    
-    const shit = createElem('div', ['shit'], [avatar, right], {onmouseover: "showReply(this)", onmouseout: "hideReply(this)"})
-    shit.id = msg._id
+        const right = createElem('div', ['rightCont'], [title, content])
+        
+        const shit = createElem('div', ['shit'], [right], {onmouseover: "showReply(this)", onmouseout: "hideReply(this)"})
+        shit.id = msg._id
+        if (images != undefined)
+        {
+            shit.style.paddingTop = "1px"
+            shit.style.paddingBottom = "6px"
+        }
+        else
+        {
+            shit.style.paddingTop = "3px"
+            shit.style.paddingBottom = "3px"
+        }
+        shit.style.paddingLeft = "80px"
 
-    return shit
+        return shit
+    }
+    else
+    {
+        const avatarImg = createElem('img', [], [], {src: msg.author.avatar})
+        const avatar = createElem('div', ['avatar'], [avatarImg])
+
+        const name = createElem('div', ['name'])
+        name.innerText = msg.author.name
+        name.id = msg.author._id
+
+        const time = createElem('div', ['time'])
+        var today = new Date(msg.time)
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+        var yyyy = today.getFullYear();
+        var timeDate = today.toLocaleTimeString('ru-RU', { hour12: false, 
+            hour: "numeric", 
+            minute: "numeric"});
+        today = timeDate + ' ' + dd + '.' + mm + '.' + yyyy;
+        time.innerText = today
+
+        const reply = createElem('button', ['reply'], [], {id: msg.id, onclick: "reply(this)"})
+        reply.innerHTML = '<i style="font-size:14px" class="fa">&#xf112;</i>'
+        const title = createElem('div', ['title'], [name, time, reply])
+
+        const text = createElem('div', ['text'])
+        text.innerText = msg.msg
+        var images, content, replyMes
+        if (msg.reply && msg.reply != {})
+        {
+            replyMes = genReplyMessage(msg.reply.name, msg.reply.time, msg.reply.text, msg.reply.id, msg.reply._id)
+        }
+        else
+        {
+            replyMes = ''
+        }
+
+        if (msg.images.length > 0)
+        {
+            images = createElem('div', ['images'], [], {data: msg.images})
+            if (replyMes != '')
+            {
+                content = createElem('div', ['content'], [replyMes, text, images])
+            }
+            else
+            {
+                content = createElem('div', ['content'], [text, images])
+            }
+        }
+        else
+        {
+            if (replyMes != '')
+            {
+                content = createElem('div', ['content'], [replyMes, text])
+            }
+            else
+            {
+                content = createElem('div', ['content'], [text])
+            }
+        }
+        const right = createElem('div', ['rightCont'], [title, content])
+        
+        const shit = createElem('div', ['shit'], [avatar, right], {onmouseover: "showReply(this)", onmouseout: "hideReply(this)"})
+        shit.id = msg._id
+
+        return shit
+
+    }
 }
 
 function genReplyMessage(divName, divTime, divText, divId, div_Id, divImage = false, divClose = false)
@@ -195,8 +278,15 @@ socket.on('lastMessages callback', function(dataMes)
     {
         var data = dataMes.list
         for (let i = 0; i < data.length; i++)
-        {
-            renderMessage(genMessage(data[i]))
+        {            
+            if (i > 0 && JSON.stringify(data[i].author) === JSON.stringify(data[i - 1].author))
+            {
+                renderMessage(genMessage(data[i], true))
+            }
+            else
+            {
+                renderMessage(genMessage(data[i]))
+            }
         }
         updateGalleries(true) 
         lever(OFFSET)
@@ -222,6 +312,7 @@ function lever (offset)
             let lastid = Number($('.shit')[0].getElementsByClassName('reply')[0].id)
             let firstid = lastid - offset
             if (firstid < 0) { firstid = 0 }
+            console.log(firstid, lastid)
             if (firstid > -1 && lastid > 0)
             {
                 renderMessages(firstid, lastid)
@@ -243,7 +334,20 @@ socket.on('loadMessages callback', function(data, token)
         var oldScroll = $(window).scrollTop()
         for (let i = 0; i < data.length; i++)
         {
-            renderMessage(genMessage(data[i]), true)
+            if (i < data.length - 1 && JSON.stringify(data[i].author) === JSON.stringify(data[i + 1].author))
+            {
+                renderMessage(genMessage(data[i], true), true)
+            }
+            else if (i == data.length - 1 && JSON.stringify(data[i].author) === JSON.stringify(data[i - 1].author))
+            {
+                let elem = genMessage(data[i])
+                elem.style.paddingBottom = "3px"
+                renderMessage(elem, true)
+            }
+            else
+            {
+                renderMessage(genMessage(data[i]), true)
+            }
         }
         async function bounce () 
         {

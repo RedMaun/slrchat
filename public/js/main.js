@@ -195,7 +195,16 @@ form.addEventListener('submit', function(e) {
     }
 });
 socket.on('message callback', function(msg) {
-    renderMessage(genMessage(msg))
+    let previousDiv = $('.shit')[$('.shit').length - 1]
+    if ( previousDiv.getElementsByClassName('name')[0].id == msg.author._id )
+    {
+        previousDiv.style.paddingBottom = "3px"
+        renderMessage(genMessage(msg, true))
+    }
+    else
+    {
+        renderMessage(genMessage(msg))
+    }
 });
 
 $( document ).ready(function() {

@@ -171,16 +171,12 @@ body
 
 .content .text
 {
+    line-height: 100%;
     display: block;  
     margin-top: 4px;
     word-wrap: break-word;
     margin-bottom: 5px;
     font-size: 15.5px;
-}
-
-.images
-{
-    margin-top: 10px !important;
 }
 
 .images img

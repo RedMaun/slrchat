@@ -1,6 +1,7 @@
 .imgs-grid {
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 10px;
   font-size: 0;
 }
 .imgs-grid.imgs-grid-1 .imgs-grid-image {
