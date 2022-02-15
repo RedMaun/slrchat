@@ -68,7 +68,7 @@ io.on('connection', async (socket) => {
   socket.on('loadMessages', async (startid, lastid, token) => {
     var list = (await messages.find({}).lean())
     var listIndex = []
-    for (let i = startid; i <= lastid; i++)
+    for (let i = startid; i < lastid; i++)
     {
       listIndex.push(list[i])
     }
