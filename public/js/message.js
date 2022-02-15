@@ -1,5 +1,5 @@
 const socket = io();
-const OFFSET = 30
+const OFFSET = 50
 
 function loaded() {
     window.scrollTo(0, document.body.scrollHeight);

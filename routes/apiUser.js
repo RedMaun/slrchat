@@ -27,7 +27,7 @@ router.post('/register', urlencodedParser, async (req, res) => {
     {
         const savedUser = await user.save();
         const token = jwt.sign({ _id: user._id }, (process.env.TOKEN_SECRET).toString('base64'));
-        res.cookie('tokenKey', token);
+        res.cookie('tokenKey', token, { maxAge: 17561488294711});
         res.redirect('/');
     }
     catch(err)
@@ -47,7 +47,7 @@ router.post('/login', urlencodedParser, async (req, res) => {
     if (!validPass) return res.status(400).send('pass');
 
     const token = jwt.sign({ _id: user._id }, (process.env.TOKEN_SECRET).toString('base64'));
-    res.cookie('tokenKey', token);
+    res.cookie('tokenKey', token, { maxAge: 17561488294711 });
     res.redirect('/');
 
 });
