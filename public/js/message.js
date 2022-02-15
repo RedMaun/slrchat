@@ -132,8 +132,8 @@ function genMessage(msg, isChildMessage = false)
         }
         else
         {
-            shit.style.paddingTop = "3px"
-            shit.style.paddingBottom = "3px"
+            shit.style.paddingTop = "0px"
+            shit.style.paddingBottom = "0px"
         }
         shit.style.paddingLeft = "80px"
 
@@ -285,14 +285,14 @@ socket.on('lastMessages callback', function(dataMes)
                 if (i > 1 && !(JSON.stringify(data[i - 1].author) === JSON.stringify(data[i - 2].author)))
                 {
                     let elem = document.getElementById(data[i - 1]._id)
-                    elem.style.paddingBottom = "3px"
+                    elem.style.paddingBottom = "0px"
                 }
                 renderMessage(genMessage(data[i], true))
             }
             else if (i == 0 && JSON.stringify(data[i].author) === JSON.stringify(data[i + 1].author))
             {
                 let elem = genMessage(data[i])
-                elem.style.paddingBottom = "3px"
+                elem.style.paddingBottom = "0px"
                 renderMessage(elem)
             }
             else
@@ -355,7 +355,7 @@ socket.on('loadMessages callback', function(data, token)
                 if (i < data.length - 1 && i > 0 && JSON.stringify(data[i].author) === JSON.stringify(data[i - 1].author))
                 {
                     let elem = genMessage(data[i])
-                    elem.style.paddingBottom = "3px"
+                    elem.style.paddingBottom = "0px"
                     renderMessage(elem, true)
                 }
                 else
@@ -366,7 +366,7 @@ socket.on('loadMessages callback', function(data, token)
             else if (i == data.length - 1 && JSON.stringify(data[i].author) === JSON.stringify(data[i - 1].author))
             {
                 let elem = genMessage(data[i])
-                elem.style.paddingBottom = "3px"
+                elem.style.paddingBottom = "0px"
                 renderMessage(elem, true)
             }
             else

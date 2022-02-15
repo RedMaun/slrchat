@@ -12,6 +12,7 @@ body
     font-family: 'Roboto', sans-serif;
     color: #D7DADC;
     background-color: #000000;
+    overflow-y: scroll;
 }
 
 .space
@@ -61,6 +62,8 @@ body
     margin-right: 10px;
     width: 26px;
     height: 26px;
+    padding-bottom: 7px;
+    padding-top: 7px;
 }
 
 #header-avatar img, .avatar img

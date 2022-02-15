@@ -197,7 +197,7 @@ socket.on('message callback', function(msg) {
     let previousDiv = $('.shit')[$('.shit').length - 1]
     if ( previousDiv.getElementsByClassName('name')[0].id == msg.author._id )
     {
-        previousDiv.style.paddingBottom = "3px"
+        previousDiv.style.paddingBottom = "0px"
         renderMessage(genMessage(msg, true))
     }
     else
@@ -216,6 +216,8 @@ socket.on('userData', function(msg) {
     {
         userData = msg
         headerName.innerText = msg.name
+        let imgDiv = '<img src="">'
+        headerAvatar.innerHTML = imgDiv
         headerAvatar.getElementsByTagName('img')[0].setAttribute('src', msg.avatar)
     }
 });
