@@ -12,12 +12,30 @@
         </div>
         <div id="rightModule">
             <div id="header-name"></div>
-            <div id="header-avatar"></div>
+            <div id="header-avatar" onclick="$('#uploadAvatar').click()"></div>
             <a href="/api/user/exit">
                 <button id="exit">Выход</button>
             </a>
+            <input type="file" onchange="loadAvatar(this)" id="uploadAvatar" style="display: none;"/>
         </div>
     </div>
+
+    <div id="avatarChange">
+		<div id="field">
+			<img id="croppingImage" src="">
+			<div id="0" class="dot" style="left: 0px; top: 0px; cursor: nwse-resize; "></div>
+			<div id="1" class="dot" style="left: 200px; top: 0px; cursor: nesw-resize;"></div>
+			<div id="2" class="dot" style="left: 0px; top: 200px; cursor: nesw-resize;"></div>
+			<div id="3" class="dot" style="left: 200px; top: 200px; cursor: nwse-resize;"></div>
+			<div id="crop-box"></div>
+		</div>
+        <canvas id="canvas" style="display:none; border-radius: 500px"></canvas>
+        <div id="buttCont">
+            <button id="closePreAvatar" onclick="closeChange()">Назад</button>
+            <button id="fieldButton" onclick="result()">Сохранить и продолжить</button>
+        </div>        
+	</div>
+
     <div id="seweragePlug"></div>
     <div class="space" style="height: 40px !important"></div>
     <div id="sewerage"></div>
@@ -41,6 +59,7 @@
     <script src="../public/js/images-grid.js"></script>
     <script src="../public/js/message.js"></script>
     <script src="../public/js/main.js"></script>
+    <script src="../public/js/avatar.js"></script>
     <script>loadLastMessages(cookieData)</script>
 </body>
 </html>

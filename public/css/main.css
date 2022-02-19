@@ -64,6 +64,7 @@ body
     height: 26px;
     padding-bottom: 7px;
     padding-top: 7px;
+    cursor: pointer;
 }
 
 #header-avatar img, .avatar img
@@ -465,4 +466,104 @@ body
     left: 50%;
     margin-left: -275px;
     background-color: #1a1a1a;
+}
+
+.dot
+{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    color: blue;
+    z-index: 101;
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.5) inset;
+}
+
+#field
+{
+    max-width: 500px; 
+    max-height: 500px; 
+    width: auto;
+    height: auto;
+    position: relative;
+    z-index: 100;
+}
+
+#field img
+{
+    max-width: 500px;
+    width: auto;
+    height: auto;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    z-index: 100;
+
+}
+
+#crop-box 
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 210px;
+    height: 210px;  
+    background-color: rgba(255, 0, 0, 0.3);
+    /* border-radius: 500px; */
+    /* border: 1px solid black; */
+    z-index: 100;
+}
+
+#avatarChange
+{
+    display: none;
+    position: fixed;
+    z-index: 100;
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    left: 50%;
+    width: 500px;
+    height: auto;
+    padding: 50px;
+    padding-bottom: 30px;
+    top: 50px;
+    margin-left: -300px;
+    box-shadow: 0px 0px 1px 100vmax rgba(0, 0, 0, 0.5)
+}
+
+#closePreAvatar, #fieldButton
+{
+    font-size: 16px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#fieldButton
+{
+    margin-left: 10px;
+    background-color: #ff6600;
+}
+
+#fieldButton:hover, #closePreAvatar:hover
+{
+    filter: brightness(90%);
+}
+
+#buttCont
+{
+    width: max-content;
+    margin: auto;
+    margin-top: 20px;
 }

@@ -28,6 +28,30 @@ io.on('connection', async (socket) => {
     const user = await User.findOne({ _id: decoded._id });
     io.emit('userData', {token: token, name: user.name, avatar: user.avatar})
   })
+  socket.on('avatar', async (avatar, token) => 
+  {
+    let decoded = jwt_decode(token);
+    let name = md5(avatar)
+    fs.writeFile(`./public/uploads/${name}.jpg`, avatar, 'binary', function(err) {})
+    var path = `../public/uploads/${name}.jpg`
+    var newvalue = { $set: { avatar: path } };
+    await User.updateOne({ _id: decoded._id }, newvalue);
+
+    var list = await messages.find({})
+    for (let i = 0; i < list.length; i++)
+    {
+      if (list[i].author._id == decoded._id)
+      {
+        obj = list[i].author
+        obj.avatar = path
+        newvalue = { $set: { author: obj} };
+        await messages.updateOne({ _id: list[i]._id }, newvalue);
+      }
+    }
+
+
+    io.emit('update', token)
+  })
   socket.on('chat message', async (msg) => {
     try
     {

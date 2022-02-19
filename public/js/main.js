@@ -167,7 +167,7 @@ var uploadShit = document.getElementById('uploadShit')
 form.addEventListener('submit', function(e) {
     e.preventDefault();
     if (input.value || shitArr.length > 0) {
-        let author = document.cookie.substring(9)
+        let author = cookieData
         if (replyDisplay.childElementCount === 1)
         {
             let {name, time, text, image} = getDataDiv(replyDiv)
@@ -207,7 +207,7 @@ socket.on('message callback', function(msg) {
 });
 
 $( document ).ready(function() {
-    socket.emit('userData', document.cookie.substring(9))
+    socket.emit('userData', cookieData)
 })
 
 socket.on('userData', function(msg) {
