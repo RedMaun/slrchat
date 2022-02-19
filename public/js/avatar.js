@@ -84,6 +84,20 @@ function closeChange()
     ctx.clearRect(0, 0, 500, 500);
     uploadAvatar.value = ''
     canvas.style.display = 'none'   
+    zero.style.left = "0px"
+    one.style.left = "200px"
+    two.style.left = "0px"
+    three.style.left = "200px"
+
+    zero.style.top = "0px"
+    one.style.top = "0px"
+    two.style.top = "200px"
+    three.style.top = "200px"
+
+    crop.style.left = "0px"
+    crop.style.top = "0px"
+    crop.style.width = "210px"
+    crop.style.height = "210px"
 }
 
 function loadAvatar(elem)
