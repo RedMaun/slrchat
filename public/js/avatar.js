@@ -13,7 +13,6 @@ var offsets
 var image = field.getElementsByTagName('img')[0]
 var croppingImage = document.getElementById('croppingImage')
 image.crossOrigin="anonymous"
-
 var uploadAvatar = document.getElementById('uploadAvatar')
 var closePreAvatar = document.getElementById('closePreAvatar')
 var fieldButton = document.getElementById('fieldButton')
@@ -162,7 +161,7 @@ function onMouseDown()
     function moveAt(pageX, pageY) 
     {
         pageX -= offsets.left
-        pageY -= offsets.top
+        pageY -= (offsets.top + window.scrollY)
         if (div.id == '0' || div.id == '3')
         {
             var diff = (pageX+pageY)/2 - ((deletePx(div.style.left) + deletePx(div.style.top))/2)
@@ -258,7 +257,7 @@ function cropMove()
     function moveAt(pageX, pageY)
     {
         pageX -= offsets.left
-        pageY -= offsets.top
+        pageY -= (offsets.top + window.scrollY)
         let left = pageX - shiftX
         let top = pageY - shiftY 
 

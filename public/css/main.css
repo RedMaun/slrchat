@@ -494,6 +494,7 @@ body
 #field img
 {
     max-width: 500px;
+    max-height: 500px;
     width: auto;
     height: auto;
     -webkit-user-select: none;
@@ -507,6 +508,10 @@ body
     -o-user-drag: none;
     z-index: 100;
 
+}
+#croppingImage
+{
+    margin: auto;
 }
 
 #crop-box 
