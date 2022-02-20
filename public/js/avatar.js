@@ -183,33 +183,28 @@ function onMouseDown()
             let left = deletePx(div.style.left) + diff
             let top = deletePx(div.style.top) + diff
 
-            if (left < 0 || left > field.clientWidth - 10)
-            {
-                left = deletePx(div.style.left)
-                top = deletePx(div.style.top)
-            }
-
-            if (top < 0 || top > field.clientHeight - 10)
-            {
-                left = deletePx(div.style.left)
-                top = deletePx(div.style.top)
-            }
-
             if (left < 0)
             {
+                top = top - left
                 left = 0
             }
-            if (top < 0)
-            {
-                top = 0
-            }
+
             if (left > field.clientWidth - 10)
             {
+                top = top - (left - (field.clientWidth - 10))
                 left = field.clientWidth - 10
             }
+
+            if (top < 0)
+            {
+                left = left - top
+                top = 0
+            }
+
             if (top > field.clientHeight - 10)
             {
-                left = field.clientHeight - 10
+                left = left - (top - (field.clientHeight - 10))
+                top = field.clientHeight - 10
             }
             
             div.style.left = left + 'px'
@@ -223,18 +218,31 @@ function onMouseDown()
             let left = deletePx(div.style.left) - diff
             let top = deletePx(div.style.top) + diff
 
-            if (left < 0 || left > field.clientWidth - 10)
+            if (left < 0)
             {
-                left = deletePx(div.style.left)
-                top = deletePx(div.style.top)
+                top = top + left
+                left = 0
             }
 
-            if (top < 0 || top > field.clientHeight - 10)
+            if (left > field.clientWidth - 10)
             {
-                left = deletePx(div.style.left)
-                top = deletePx(div.style.top)
+                top = top + (left - (field.clientWidth - 10))
+                left = field.clientWidth - 10
             }
 
+            if (top < 0)
+            {
+                left = left + top
+                top = 0
+            }
+
+            if (top > field.clientHeight - 10)
+            {
+                left = left + (top - (field.clientHeight - 10))
+                top = field.clientHeight - 10
+            }
+
+            
             div.style.left = left + 'px'
             div.style.top = top + 'px'
 
@@ -283,13 +291,21 @@ function cropMove()
         {
             top = 0
         }
-        if (left + div.clientWidth > field.clientWidth)
+
+        var divW = div.clientWidth
+        var fieldW = field.clientWidth
+
+        if (left + divW > fieldW)
         {
-            left = field.clientWidth - div.clientWidth
+            left = fieldW - divW
         }
-        if (top + div.clientHeight > field.clientHeight)
+
+        var divH = div.clientHeight
+        var fieldH = field.clientHeight
+
+        if (top + divH > fieldH)
         {
-            top = field.clientHeight - div.clientHeigh
+            top = fieldH - divH
         }
 
         div.style.left = left + 'px';
